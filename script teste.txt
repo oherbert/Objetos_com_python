@@ -1,0 +1,7 @@
+C:/Python39/python.exe "c:/Users/Herbert/Documents/Python/teste oracle/oracle.py" "SELECT * FROM departments" "Departamentos.json"
+
+C:/Python39/python.exe "c:/Users/Herbert/Documents/Python/teste oracle/oracle.py" "select * from employees" "Empregados.json"
+
+C:/Python39/python.exe "c:/Users/Herbert/Documents/Python/teste oracle/xml_json.py" "Departamentos.json"
+
+C:/Python39/python.exe "c:/Users/Herbert/Documents/Python/teste oracle/xml_json.py" "Departamentos.xml"
