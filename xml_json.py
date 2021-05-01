@@ -1,5 +1,6 @@
 import json
 from dicttoxml import dicttoxml
+from dict2xml import dicttoxml2
 import xmltodict
 import sys
 import traceback
@@ -123,6 +124,9 @@ if len(parametros) > 1:
                 jsons = json.loads(reader.read())
             
             with open(parametros[1].replace('.json','.xml'), 'w') as writer:
+                
+                dicttoxml2(jsons)
+                
                 check = True if len(jsons) == 1 else False
                 xml = dicttoxml(jsons, attr_type=False)
                 xml = parseString(xml).toprettyxml()
