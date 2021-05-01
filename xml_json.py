@@ -35,7 +35,18 @@ def has_decimal_point(string:str):
     
     else: return False
 
-def format_num_fields(elist:list, next_item:list = None):
+def format_str(string:str):
+    old = ''
+    new_string = ''
+    for char in string:
+        new = char
+        char = '' if char == '\n' or char=='\t' else char
+        char = '' if char == ' ' and (old == ' ' or old == '\n') else char
+        old = char if new != ' ' and new !='\n'  else new
+        new_string += char
+    return new_string
+
+def format_fields(elist:list, next_item:list = None):
 
     """
         Caso seja uma chamada recursiva o valor next_item deve ser atribuido,
@@ -57,9 +68,9 @@ def format_num_fields(elist:list, next_item:list = None):
         # Bloqueia de continuar caso não seja dict
         if not isinstance(item,dict):
             if isinstance(item,list):
-                format_num_fields(elist,item)
+                format_fields(elist,item)
             elif isinstance(item,tuple):
-                format_num_fields(elist,[item])
+                format_fields(elist,[item])
             continue
 
         # Tratamento do dict
@@ -67,22 +78,28 @@ def format_num_fields(elist:list, next_item:list = None):
             for key, value in item.items():
                 if isinstance(value,str):
                     try:
+                        # Bloqueio para tratamendo de str que començão com 0
                         if value[0] == '0' and not has_decimal_point(value):
                             continue  
                         
-                        if couldbe_number(value) and not has_decimal_point(value):
+                        # Tratamento para int
+                        elif couldbe_number(value) and not has_decimal_point(value):
                             item[key] = int(value)
-                            continue
 
-                        if couldbe_number(value) and has_decimal_point(value):
+                        # Tratamento para float
+                        elif couldbe_number(value) and has_decimal_point(value):
                             item[key] = float(value.replace(',','.')) 
+                        
+                        # Tratamento de duplos na str ou quebra de linnha
+                        else:
+                            item[key] = format_str(value)
 
                     except Exception:
                         traceback.print_exc()
                 else:
-                    format_num_fields(elist,[value])
+                    format_fields(elist,[value])
         else:
-            format_num_fields(elist,[item])              
+            format_fields(elist,[item])              
     return elist            
 
 
@@ -100,7 +117,7 @@ if len(parametros) > 1:
             
             with open(parametros[1].replace('.json','.xml'), 'w') as writer:
                 xml = dicttoxml(jsons, attr_type=False)
-                writer.write(xml.parseString(xml).toprettyxml())
+                writer.write(parseString(xml).toprettyxml())
         
         elif '.xml' in parametros[1]:
             with open(parametros[1], 'r') as reader:
@@ -117,7 +134,7 @@ if len(parametros) > 1:
                 if not isinstance(jsons,list):
                     jsons = [jsons]
 
-                jsons = format_num_fields(jsons) 
+                jsons = format_fields(jsons) 
                 jsons = json.dump(jsons, writer,indent= 2)                          
 
     except Exception:
