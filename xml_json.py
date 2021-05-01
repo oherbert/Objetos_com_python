@@ -14,7 +14,14 @@ def couldbe_number(string:str):
     
     string = string.strip()
 
-    if string[0].isdecimal or string[0] == '-':
+    aval = iter(string)
+
+    stg = next(aval)
+
+    if stg.isdecimal() or stg == '-':
+        for st in aval:
+            if not (st.isdecimal() or st =='.' or st ==','):
+                return False
         return True
     
     else: return False 
@@ -28,39 +35,37 @@ def has_decimal_point(string:str):
     
     else: return False
 
-def format_num_fields(elist:list, next_item = None):
+def format_num_fields(elist:list, next_item:list = None):
 
+    """
+        Caso seja uma chamada recursiva o valor next_item deve ser atribuido,
+        sempre deve ser passado uma lista
+    """
     next_item = elist if next_item == None else next_item
 
     for item in next_item:
 
         if item == None:
             continue
-
+        # Se tipo Tuple: unbox na tuple : se str cria um dict
         if isinstance(item,tuple):
             if not isinstance(item[1],str): 
                 item = item[1]
             else:
                 item = {item[0],item[1]}
 
+        # Bloqueia de continuar caso não seja dict
         if not isinstance(item,dict):
-            print('Not a dict')
-            print('\n',item)
             if isinstance(item,list):
-                print('\n it is a list \n')
                 format_num_fields(elist,item)
             elif isinstance(item,tuple):
-                print('it is ',type(item) )
                 format_num_fields(elist,[item])
-            else:
-                print('continue',item)
             continue
 
         if len(item.keys()) == 1:
             val = list(item.keys())[0]
             val = str(val)
             if not isinstance(item[val],str):
-                print('pop item')
                 new_item = item.copy()
                 item = new_item.popitem()    
         
@@ -68,18 +73,15 @@ def format_num_fields(elist:list, next_item = None):
             for key, value in item.items():
                 if isinstance(value,str):
                     try:
-                        print(f'\n{value}\n')
                         if value[0] == '0' and not has_decimal_point(value):
                             continue  
                         
                         if couldbe_number(value) and not has_decimal_point(value):
                             item[key] = int(value)
-                            print('int')
                             continue
 
                         if couldbe_number(value) and has_decimal_point(value):
-                            item[key] = float(value.replace(',','.'))
-                            print('float')    
+                            item[key] = float(value.replace(',','.')) 
 
                     except Exception:
                         traceback.print_exc()
