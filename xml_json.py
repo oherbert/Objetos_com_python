@@ -13,9 +13,7 @@ def couldbe_number(string:str):
         return False
     
     string = string.strip()
-
     aval = iter(string)
-
     stg = next(aval)
 
     if stg.isdecimal() or stg == '-':
@@ -35,6 +33,7 @@ def has_decimal_point(string:str):
     
     else: return False
 
+# Tratamento de duplos na str ou quebra de linnha
 def format_str(string:str):
     old = ''
     new_string = ''
@@ -42,12 +41,20 @@ def format_str(string:str):
         new = char
         char = '' if char == '\n' or char=='\t' else char
         char = '' if char == ' ' and (old == ' ' or old == '\n') else char
-        old = char if new != ' ' and new !='\n'  else new
+        old = char if new != ' ' and new !='\n' and new !='\t' else new
         new_string += char
     return new_string
 
-def format_fields(elist:list, next_item:list = None):
+def remove_empty_lines(string:str):
+    lines = string.split('\n')
+    non_empty_lines = [line for line in lines if line.strip() != ""]
+    string = ""
+    
+    for line in non_empty_lines:
+        string += line + "\n"
+    return string
 
+def format_fields(elist:list, next_item:list = None):
     """
         Caso seja uma chamada recursiva o valor next_item deve ser atribuido,
         sempre deve ser passado uma lista
@@ -90,7 +97,7 @@ def format_fields(elist:list, next_item:list = None):
                         elif couldbe_number(value) and has_decimal_point(value):
                             item[key] = float(value.replace(',','.')) 
                         
-                        # Tratamento de duplos na str ou quebra de linnha
+                        # Tratamento de str puras
                         else:
                             item[key] = format_str(value)
 
@@ -116,15 +123,22 @@ if len(parametros) > 1:
                 jsons = json.loads(reader.read())
             
             with open(parametros[1].replace('.json','.xml'), 'w') as writer:
+                check = True if len(jsons) == 1 else False
                 xml = dicttoxml(jsons, attr_type=False)
-                writer.write(parseString(xml).toprettyxml())
+                xml = parseString(xml).toprettyxml()
+                
+                if check:
+                    xml = xml.replace('<root>','').replace('</root>','')
+                    xml = xml.replace('<item>','').replace('</item>','')
+                    xml = remove_empty_lines(xml)
+
+                writer.write(xml)
         
         elif '.xml' in parametros[1]:
             with open(parametros[1], 'r') as reader:
                 jsons = xmltodict.parse(reader.read())
             
             with open(parametros[1].replace('.xml','.json'), 'w') as writer:
-                
                 if 'root' in jsons:
                     jsons = jsons['root']  
                 
