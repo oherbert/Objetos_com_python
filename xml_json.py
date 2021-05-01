@@ -44,7 +44,7 @@ def format_num_fields(elist:list, next_item:list = None):
     next_item = elist if next_item == None else next_item
 
     for item in next_item:
-
+    
         if item == None:
             continue
         # Se tipo Tuple: unbox na tuple : se str cria um dict
@@ -62,13 +62,7 @@ def format_num_fields(elist:list, next_item:list = None):
                 format_num_fields(elist,[item])
             continue
 
-        if len(item.keys()) == 1:
-            val = list(item.keys())[0]
-            val = str(val)
-            if not isinstance(item[val],str):
-                new_item = item.copy()
-                item = new_item.popitem()    
-        
+        # Tratamento do dict
         if isinstance(item, dict):
             for key, value in item.items():
                 if isinstance(value,str):
