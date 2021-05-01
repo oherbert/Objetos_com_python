@@ -5,20 +5,20 @@
       "evtMovOpFin": {
         "@id": "ID000000000000000001",
         "ideEvento": {
-          "indRetificacao": "1",
-          "tpAmb": "1",
-          "aplicEmi": "2",
+          "indRetificacao": 1,
+          "tpAmb": 1,
+          "aplicEmi": 2,
           "verAplic": "00000000000000000001"
         },
         "ideDeclarante": {
-          "cnpjDeclarante": "11111111111111"
+          "cnpjDeclarante": 11111111111111
         },
         "ideDeclarado": {
-          "tpNI": "2",
+          "tpNI": 2,
           "tpDeclarado": "FATCA101",
-          "NIDeclarado": "22222222222222",
+          "NIDeclarado": 22222222222222,
           "NIF": {
-            "NumeroNIF": "1234567890123456789012345",
+            "NumeroNIF": 1234567890123456789012345,
             "PaisEmissaoNIF": "US"
           },
           "NomeDeclarado": "Nome do Declarado com 100 caracteres com 100 caracteres com 100 caracteres com 100 caracteres com 10",
@@ -36,11 +36,11 @@
             "Pais": "BR"
           },
           "Proprietarios": {
-            "tpNI": "1",
-            "NIProprietario": "12345678901",
+            "tpNI": 1,
+            "NIProprietario": 12345678901,
             "tpProprietario": "CRS801",
             "NIF": {
-              "NumeroNIF": "1234567890123456789012345",
+              "NumeroNIF": 1234567890123456789012345,
               "PaisEmissaoNIF": "US"
             },
             "Nome": "Nome com 100 caracteres com 100 caracteres com 100 caracteres com 100 caracteres com 100 caracteres!",
@@ -102,51 +102,51 @@
           }
         },
         "mesCaixa": {
-          "anoMesCaixa": "201806",
+          "anoMesCaixa": 201806,
           "movOpFin": {
             "Conta": {
               "infoConta": {
                 "Reportavel": {
                   "Pais": "BR"
                 },
-                "tpConta": "3",
-                "subTpConta": "301",
+                "tpConta": 3,
+                "subTpConta": 301,
                 "tpNumConta": "OECD605",
                 "numConta": "1234|123|1234567890123",
-                "tpRelacaoDeclarado": "3",
+                "tpRelacaoDeclarado": 3,
                 "Intermediario": {
                   "GIIN": "98Q96B.00000.LE.250",
-                  "tpNI": "1",
-                  "NIIntermediario": "48470767100"
+                  "tpNI": 1,
+                  "NIIntermediario": 48470767100
                 },
-                "NoTitulares": "4",
+                "NoTitulares": 4,
                 "Fundo": {
                   "GIIN": "98Q96B.00000.LE.250",
-                  "CNPJ": "90001504000119"
+                  "CNPJ": 90001504000119
                 },
                 "BalancoConta": {
-                  "totCreditos": "150000,00",
-                  "totDebitos": "100000,00",
-                  "totCreditosMesmaTitularidade": "100000,00",
-                  "totDebitosMesmaTitularidade": "100000,00"
+                  "totCreditos": 150000.0,
+                  "totDebitos": 100000.0,
+                  "totCreditosMesmaTitularidade": 100000.0,
+                  "totDebitosMesmaTitularidade": 100000.0
                 },
                 "PgtosAcum": {
                   "tpPgto": "FATCA503",
-                  "totPgtosAcum": "0,00"
+                  "totPgtosAcum": 0.0
                 }
               }
             },
             "Cambio": {
               "MedJudic": {
-                "NumProcJud": "123456789",
+                "NumProcJud": 123456789,
                 "Vara": "01",
-                "SecJud": "12",
+                "SecJud": 12,
                 "SubSecJud": "Subse\u00c3\u00a7\u00c3\u00a3o judici\u00c3\u00a1ria com os 40 caracteres",
                 "dtConcessao": "2012-01-12"
               },
-              "totCompras": "1000000,00",
-              "totVendas": "1000000,00",
-              "totTransferencias": "1000000,00"
+              "totCompras": 1000000.0,
+              "totVendas": 1000000.0,
+              "totTransferencias": 1000000.0
             }
           }
         }

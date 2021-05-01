@@ -9,7 +9,7 @@ from xml.dom.minidom import parseString
 """
 
 def couldbe_number(string:str):
-    if isinstance(string,str):
+    if not isinstance(string,str):
         return False
     
     string = string.strip()
@@ -20,60 +20,74 @@ def couldbe_number(string:str):
     else: return False 
 
 def has_decimal_point(string:str):
-    if isinstance(string,str):
+    if not isinstance(string,str):
         return False
     
-    if ( '.' in value or ',' in value) in string:
+    if  '.' in string or ',' in string:
         return True
     
     else: return False
 
-def format_num_fields(array, next_item = None):
+def format_num_fields(elist:list, next_item = None):
 
-    next_item = array if next_item == None else next_item
+    next_item = elist if next_item == None else next_item
 
     for item in next_item:
 
-        print(type(item))
+        if item == None:
+            continue
 
         if isinstance(item,tuple):
-            print('Tuple unbox')
-            new_item = item.copy()
-            item = new_item[1]
+            if not isinstance(item[1],str): 
+                item = item[1]
+            else:
+                item = {item[0],item[1]}
 
         if not isinstance(item,dict):
             print('Not a dict')
+            print('\n',item)
+            if isinstance(item,list):
+                print('\n it is a list \n')
+                format_num_fields(elist,item)
+            elif isinstance(item,tuple):
+                print('it is ',type(item) )
+                format_num_fields(elist,[item])
+            else:
+                print('continue',item)
             continue
 
         if len(item.keys()) == 1:
-            print('pop item')
-            new_item = item.copy()
-            item = new_item.popitem()    
+            val = list(item.keys())[0]
+            val = str(val)
+            if not isinstance(item[val],str):
+                print('pop item')
+                new_item = item.copy()
+                item = new_item.popitem()    
         
         if isinstance(item, dict):
             for key, value in item.items():
-                try:
-                    #print('\n',value,'\n inside instace')
-                    if not isinstance(value,str):
-                        continue
-                    
-                    if value[0] == '0' and not has_decimal_point(value):
-                        continue  
+                if isinstance(value,str):
+                    try:
+                        print(f'\n{value}\n')
+                        if value[0] == '0' and not has_decimal_point(value):
+                            continue  
+                        
+                        if couldbe_number(value) and not has_decimal_point(value):
+                            item[key] = int(value)
+                            print('int')
+                            continue
 
-                    if couldbe_number(value) and not has_decimal_point(value):
-                        item[key] = int(value)
+                        if couldbe_number(value) and has_decimal_point(value):
+                            item[key] = float(value.replace(',','.'))
+                            print('float')    
 
-                    if couldbe_number(value) and has_decimal_point(value):
-                        item[key] = float(value.replace(',','.'))    
-
-                except Exception:
-                    traceback.print_exc()
+                    except Exception:
+                        traceback.print_exc()
+                else:
+                    format_num_fields(elist,[value])
         else:
-            
-            teste = format_num_fields(array,[item[1]])
-            
-    
-    return array            
+            format_num_fields(elist,[item])              
+    return elist            
 
 
 parametros = sys.argv
