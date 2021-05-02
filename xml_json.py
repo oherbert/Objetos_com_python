@@ -82,7 +82,12 @@ if len(parametros) > 1:
             with open(parametros[1].replace('.json','.xml'), 'w') as writer:                
                 
                 xml = dicttoxml2(jsons,True)
-                xml = parseString(xml).toprettyxml()
+                try:
+                    xml = parseString(xml).toprettyxml()
+                except Exception:
+                    print('Tags Missed, it not a xml')
+                    raise NameError('Incorret out xml')
+
                 xml = remove_empty_lines(xml)
                 writer.write(xml)
         

@@ -1,5 +1,3 @@
-from dataclasses import dataclass 
-
 class Xml:
     body = '<?xml version="1.0" encoding="UTF-8" ?>\n'
     added = False
@@ -42,7 +40,6 @@ def create_xml(array:list, xml:Xml):
             
             array = array[firstk]
             key_to_remove = []
-            print('\n',type(array),len(array),'\n')
 
             if isinstance(array,dict):
                 for k in array.keys():
@@ -63,39 +60,36 @@ def create_xml(array:list, xml:Xml):
         else:
             xml.add_item(firstk,array[firstk])
             return 
-        xml + f'<{firstk}{key_par}>'
+    
+    xml + f'<{firstk}{key_par}>'
 
     for elem in array:
         #Tratamento dos dict internos
         if isinstance(elem, dict):
-            if len(elem) >= 1:
-                next_val = str(list(elem)[0])
+            next_val = str(list(elem)[0])
 
-                #Tratamento de int, flot ou str 
-                if not isinstance(elem[next_val],dict):
-                    xml + f'<item>' if xml.item else ''
-                    for key, value in elem.items():
-                        
-                        if not (isinstance(value,dict) or isinstance(value,list)):
-                            xml.add_item(key,value)
+            #Tratamento de int, flot ou str 
+            if not isinstance(elem[next_val],dict):
+                xml + f'<item>' if xml.item else ''
+                for key, value in elem.items():
+                    
+                    if not (isinstance(value,dict) or isinstance(value,list)):
+                        xml.add_item(key,value)
 
-                        # Trataemto Tags com varios valores ex. Nomes:[a,b]    
-                        elif isinstance(value,list):
-                            for v in value:
-                                create_xml([{key:v}],xml)
-                        
-                        # Tramento de Tags com outro dict dentro ex. Nome:{sobrenome:a,ultimo:b}  
-                        else:
-                            create_xml([{key:value}],xml)
+                    # Trataemto Tags com varios valores ex. Nomes:[a,b]    
+                    elif isinstance(value,list):
+                        for v in value:
+                            create_xml([{key:v}],xml)
+                    
+                    # Tramento de Tags com outro dict dentro ex. Nome:{sobrenome:a,ultimo:b}  
+                    else:
+                        create_xml([{key:value}],xml)
 
-                    xml +'</item>'if xml.item else ''
-                #Caso seja uma lista ou outro dict dentro do dict 
-                else:
-                    for k,v in elem.items():
-                        create_xml([{k:v}],xml)
-            #    
+                xml +'</item>'if xml.item else ''
+            #Caso seja uma lista ou outro dict dentro do dict 
             else:
-                create_xml([elem],xml)
+                for k,v in elem.items():
+                    create_xml([{k:v}],xml)
 
         # Se houve uma lista destro da lista
         elif isinstance(elem,list):
