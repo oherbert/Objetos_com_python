@@ -114,14 +114,14 @@
 							<CNPJ>90001504000119</CNPJ>
 						</Fundo>
 						<BalancoConta>
-							<totCreditos>150000,0</totCreditos>
-							<totDebitos>100000,0</totDebitos>
-							<totCreditosMesmaTitularidade>100000,0</totCreditosMesmaTitularidade>
-							<totDebitosMesmaTitularidade>100000,0</totDebitosMesmaTitularidade>
+							<totCreditos>150000.0</totCreditos>
+							<totDebitos>100000.0</totDebitos>
+							<totCreditosMesmaTitularidade>100000.0</totCreditosMesmaTitularidade>
+							<totDebitosMesmaTitularidade>100000.0</totDebitosMesmaTitularidade>
 						</BalancoConta>
 						<PgtosAcum>
 							<tpPgto>FATCA503</tpPgto>
-							<totPgtosAcum>0,0</totPgtosAcum>
+							<totPgtosAcum>0.0</totPgtosAcum>
 						</PgtosAcum>
 					</infoConta>
 				</Conta>
