@@ -21,83 +21,84 @@ class Xml:
         print(self.body)
 
 
-def create_xml(array:list, xml:Xml):
-    firstk = 'Root' if not xml.add_item else ''
-    key_par = ''
+    def create_xml(self, array:list):
+        firstk = 'Root' if not self.added else ''
+        key_par = ''
 
-    # Tramento para lista
-    if len(array) == 1 and isinstance(array,list):
-        array = array[0].copy()
-        xml.item = False
-        firstk = str(list(array.keys())[0])
-        
-        # Tratamento de dict com 1 dict dentro
-        if len(array) == 1 and isinstance(array[firstk],dict):
+        # Tramento para lista
+        if len(array) == 1 and isinstance(array,list):
+            array = array[0].copy()
+            self.item = False
+            firstk = str(list(array.keys())[0])
             
-            array = array[firstk]
-            key_to_remove = []
+            # Tratamento de dict com 1 dict dentro
+            if len(array) == 1 and isinstance(array[firstk],dict):
+                
+                array = array[firstk]
+                key_to_remove = []
 
-            if isinstance(array,dict):
-                for k in array.keys():
-                    if '@' in k:
-                        key = k.replace('@','')
-                        if isinstance(array[k],float) or isinstance(array[k], int):
-                            num = str(array[k]).replace('.',',') if comma else array[k]
-                            key_par += f' {key}={num}'
-                            key_to_remove.append(k)
-                        else:
-                            key_par += f' {key}="{array[k]}"'
-                            key_to_remove.append(k)
+                if isinstance(array,dict):
+                    for k in array.keys():
+                        if '@' in k:
+                            key = k.replace('@','')
+                            if isinstance(array[k],float) or isinstance(array[k], int):
+                                num = str(array[k]).replace('.',',') if comma else array[k]
+                                key_par += f' {key}={num}'
+                                key_to_remove.append(k)
+                            else:
+                                key_par += f' {key}="{array[k]}"'
+                                key_to_remove.append(k)
 
-                # Remove os parametros da chave
-                for rem in key_to_remove: array.pop(rem)
-                array = [array]
-        # Dict com str dentro
-        else:
-            xml.add_item(firstk,array[firstk])
-            return 
-    
-    xml + f'<{firstk}{key_par}>'
-
-    for elem in array:
-        #Tratamento dos dict internos
-        if isinstance(elem, dict):
-            next_val = str(list(elem)[0])
-
-            #Tratamento de int, flot ou str 
-            if not isinstance(elem[next_val],dict):
-                xml + f'<item>' if xml.item else ''
-                for key, value in elem.items():
-                    
-                    if not (isinstance(value,dict) or isinstance(value,list)):
-                        xml.add_item(key,value)
-
-                    # Trataemto Tags com varios valores ex. Nomes:[a,b]    
-                    elif isinstance(value,list):
-                        for v in value:
-                            create_xml([{key:v}],xml)
-                    
-                    # Tramento de Tags com outro dict dentro ex. Nome:{sobrenome:a,ultimo:b}  
-                    else:
-                        create_xml([{key:value}],xml)
-
-                xml +'</item>'if xml.item else ''
-            #Caso seja uma lista ou outro dict dentro do dict 
+                    # Remove os parametros da chave
+                    for rem in key_to_remove: array.pop(rem)
+                    array = [array]
+            # Dict com str dentro
             else:
-                for k,v in elem.items():
-                    create_xml([{k:v}],xml)
+                self.add_item(firstk,array[firstk])
+                return 
+        
+        self + f'<{firstk}{key_par}>'
 
-        # Se houve uma lista destro da lista
-        elif isinstance(elem,list):
-            create_xml(elem,xml)
-        # Exception
-        else:
-            print('It was not possible to parse your Json')
-            raise NameError('Parse Error')
+        for elem in array:
+            #Tratamento dos dict internos
+            if isinstance(elem, dict):
+                next_val = str(list(elem)[0])
 
-    xml + f'</{firstk}>'  
+                #Tratamento de int, flot ou str 
+                if not isinstance(elem[next_val],dict):
+                    self + f'<item>' if self.item else ''
+                    for key, value in elem.items():
+                        
+                        if not (isinstance(value,dict) or isinstance(value,list)):
+                            self.add_item(key,value)
+
+                        # Trataemto Tags com varios valores ex. Nomes:[a,b]    
+                        elif isinstance(value,list):
+                            for v in value:
+                                self.create_xml([{key:v}])
+                        
+                        # Tramento de Tags com outro dict dentro ex. Nome:{sobrenome:a,ultimo:b}  
+                        else:
+                            self.create_xml([{key:value}])
+
+                    self +'</item>'if self.item else ''
+                #Caso seja uma lista ou outro dict dentro do dict 
+                else:
+                    for k,v in elem.items():
+                        self.create_xml([{k:v}])
+
+            # Se houve uma lista destro da lista
+            elif isinstance(elem,list):
+                self.create_xml(elem)
+            # Exception
+            else:
+                print('It was not possible to parse your Json')
+                raise NameError('Parse Error')
+
+        self + f'</{firstk}>'  
 
 def dicttoxml2(mylist:list, comma = False):
     xml = Xml(comma)   
-    create_xml(mylist,xml)
+    xml.create_xml(mylist)
+    xml.print()
     return xml.body
