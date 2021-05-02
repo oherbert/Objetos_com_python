@@ -79,19 +79,11 @@ if len(parametros) > 1:
             with open(parametros[1], 'r') as reader:
                 jsons = json.loads(reader.read())
             
-            with open(parametros[1].replace('.json','.xml'), 'w') as writer:
+            with open(parametros[1].replace('.json','.xml'), 'w') as writer:                
                 
-                dicttoxml2(jsons,True)
-                
-                check = True if len(jsons) == 1 else False
-                xml = dicttoxml(jsons, attr_type=False)
+                xml = dicttoxml2(jsons,True)
                 xml = parseString(xml).toprettyxml()
-                
-                if check:
-                    xml = xml.replace('<root>','').replace('</root>','')
-                    xml = xml.replace('<item>','').replace('</item>','')
-                    xml = remove_empty_lines(xml)
-
+                xml = remove_empty_lines(xml)
                 writer.write(xml)
         
         elif '.xml' in parametros[1]:

@@ -8,9 +8,6 @@ class Xml:
     def __add__(self, string:str):
         self.body += f'{str(string)}\n'
         self.added = True
-    
-    def print(self):
-        print(self.body)
 
     def add_item(self,key:str,value:str,parms = None):
         if parms == None:
@@ -18,6 +15,9 @@ class Xml:
 
     def has_element(self):
         return self.added
+    
+    def print(self):
+        print(self.body)
 
 
 def create(array:list, xml:Xml, comma:bool):
@@ -111,5 +111,5 @@ def create(array:list, xml:Xml, comma:bool):
 def dicttoxml2(mylist:list, comma = False):
     xml = Xml()   
     create(mylist,xml, comma)
-    print('\n')
     xml.print()
+    return xml.body
