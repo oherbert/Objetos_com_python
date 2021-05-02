@@ -14,19 +14,15 @@ class Xml:
         if isinstance(value,float):
             value = str(value).replace('.',',') if self.comma else value
 
-        self.body += f'<{key}>{str(value)}</{key}>\n' 
-
-    def has_element(self):
-        return self.added
+        self.body += f'<{key}>{str(value)}</{key}>\n'
+        self.added = True 
     
     def print(self):
         print(self.body)
 
 
 def create_xml(array:list, xml:Xml):
-    root = True if xml.has_element() == False else False 
-    
-    firstk = 'Root' if root else ''
+    firstk = 'Root' if not xml.add_item else ''
     key_par = ''
 
     # Tramento para lista
