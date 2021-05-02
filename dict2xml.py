@@ -34,7 +34,9 @@ def create(array:list, xml:Xml, comma:bool):
         xml.item = False
         firstk = str(list(array.keys())[0])
         
-        if len(array) == 1 and isinstance(array[firstk],dict):
+        if len(array) == 1 and (isinstance(array[firstk],dict) 
+                           or isinstance(array[firstk],list)):
+            
             array = array[firstk]
             key_to_remove = []
             print('\n',type(array),len(array),'\n')
@@ -53,11 +55,11 @@ def create(array:list, xml:Xml, comma:bool):
 
                 for rem in key_to_remove: array.pop(rem)
                 array = [array]
-            else:
-                print(' VALORES',array)
-                xml.add_item(firstk,array[firstk])
-                return 
-            xml + f'<{firstk}{key_par}>'
+        else:
+            print(' VALORES',array)
+            xml.add_item(firstk,array[firstk])
+            return 
+        xml + f'<{firstk}{key_par}>'
 
     for elem in array:
         print('dentro for\n',len(elem),'\n',type(elem),'\n',elem,'\n')
