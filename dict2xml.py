@@ -1,5 +1,4 @@
 from dataclasses import dataclass 
-from utils import couldbe_number
 
 class Xml:
     body = '<?xml version="1.0" encoding="UTF-8" ?>\n'
@@ -7,7 +6,7 @@ class Xml:
     item = True
     
     def __add__(self, string:str):
-        self.body += f'{string}\n'
+        self.body += f'{str(string)}\n'
         self.added = True
     
     def print(self):
@@ -15,7 +14,7 @@ class Xml:
 
     def add_item(self,key:str,value:str,parms = None):
         if parms == None:
-            self.body += f'<{key}>{value}</{key}>\n' 
+            self.body += f'<{key}>{str(value)}</{key}>\n' 
 
     def has_element(self):
         return self.added
@@ -44,8 +43,8 @@ def create(array:list, xml:Xml, comma:bool):
                 for k in array.keys():
                     if '@' in k:
                         key = k.replace('@','')
-                        if couldbe_number(array[k]):
-                            num = array[k].replace('.',',') if comma else array[k]
+                        if isinstance(array[k],float) or isinstance(array[k], int):
+                            num = str(array[k]).replace('.',',') if comma else array[k]
                             key_par += f' {key}={num}'
                             key_to_remove.append(k)
                         else:
@@ -56,6 +55,8 @@ def create(array:list, xml:Xml, comma:bool):
                 array = [array]
         else:
             print(' VALORES',array)
+            if isinstance(array[firstk],float):
+                array[firstk] = str(array[firstk]).replace('.',',') if comma else array[firstk]
             xml.add_item(firstk,array[firstk])
             return 
         xml + f'<{firstk}{key_par}>'
@@ -74,7 +75,12 @@ def create(array:list, xml:Xml, comma:bool):
                     for key, value in elem.items():
                         
                         if not (isinstance(value,dict) or isinstance(value,list)):
+                            
+                            if isinstance(value,float):
+                                value = str(value).replace('.',',') if comma else value
+
                             xml.add_item(key,str(value))
+                            
                             print('\n gravado ',key,value,'\n')
                         elif isinstance(value,list):
                             for v in value:

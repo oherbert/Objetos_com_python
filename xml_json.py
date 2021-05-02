@@ -81,7 +81,7 @@ if len(parametros) > 1:
             
             with open(parametros[1].replace('.json','.xml'), 'w') as writer:
                 
-                dicttoxml2(jsons)
+                dicttoxml2(jsons,True)
                 
                 check = True if len(jsons) == 1 else False
                 xml = dicttoxml(jsons, attr_type=False)
