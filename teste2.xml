@@ -1,8 +1,6 @@
 <?xml version="1.0" ?>
 		<eFinanceira>
-			<key name="@xmlns">http://www.eFinanceira.gov.br/schemas/evtMovOpFin/v1_2_0</key>
 			<evtMovOpFin>
-				<key name="@id">ID000000000000000001</key>
 				<ideEvento>
 					<indRetificacao>1</indRetificacao>
 					<tpAmb>1</tpAmb>
