@@ -3,8 +3,10 @@ class Xml:
     added = False
     item = True
     
-    def __init__(self,comma:bool):
+    def __init__(self,comma:bool,root:str,item:str):
         self.comma = comma
+        self.root_tag = root
+        self.item_tag = item
     
     def __add__(self, string:str):
         self.body += f'{str(string)}\n'
@@ -20,9 +22,8 @@ class Xml:
     def print(self):
         print(self.body)
 
-
     def create_xml(self, array:list):
-        firstk = 'Root' if not self.added else ''
+        firstk = self.root_tag if not self.added else ''
         key_par = ''
 
         # Tramento para lista
@@ -66,7 +67,7 @@ class Xml:
 
                 #Tratamento de int, flot ou str 
                 if not isinstance(elem[next_val],dict):
-                    self + f'<item>' if self.item else ''
+                    self + f'<{self.item_tag}>' if self.item else ''
                     for key, value in elem.items():
                         
                         if not (isinstance(value,dict) or isinstance(value,list)):
@@ -81,7 +82,7 @@ class Xml:
                         else:
                             self.create_xml([{key:value}])
 
-                    self +'</item>'if self.item else ''
+                    self +f'</{self.item_tag}>'if self.item else ''
                 #Caso seja uma lista ou outro dict dentro do dict 
                 else:
                     for k,v in elem.items():
@@ -97,8 +98,7 @@ class Xml:
 
         self + f'</{firstk}>'  
 
-def dicttoxml2(mylist:list, comma = False):
-    xml = Xml(comma)   
+def dicttoxml2(mylist:list, comma = False, root = 'root', item = 'item'):
+    xml = Xml(comma,root,item)   
     xml.create_xml(mylist)
-    xml.print()
     return xml.body
