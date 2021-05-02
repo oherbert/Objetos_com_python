@@ -31,12 +31,13 @@ def create_xml(array:list, xml:Xml):
     firstk = 'Root' if root else ''
     key_par = ''
 
+    # Tramento para lista
     if len(array) == 1 and isinstance(array,list):
         array = array[0].copy()
         xml.item = False
         firstk = str(list(array.keys())[0])
         
-        # Tratamento de dict com dict dentro
+        # Tratamento de dict com 1 dict dentro
         if len(array) == 1 and isinstance(array[firstk],dict):
             
             array = array[firstk]
@@ -60,58 +61,53 @@ def create_xml(array:list, xml:Xml):
                 array = [array]
         # Dict com str dentro
         else:
-            print(' Dict com str',array)
             xml.add_item(firstk,array[firstk])
             return 
         xml + f'<{firstk}{key_par}>'
 
     for elem in array:
-        print('dentro do for\n',len(elem),'\n',type(elem),'\n',elem,'\n')
-        
         #Tratamento dos dict internos
         if isinstance(elem, dict):
             if len(elem) >= 1:
-                #print(len(elem), elem)
-                if isinstance(elem,dict):
-                    next_val = str(list(elem)[0])
+                next_val = str(list(elem)[0])
 
-                #Tratamento de que não são dict 
+                #Tratamento de int, flot ou str 
                 if not isinstance(elem[next_val],dict):
                     xml + f'<item>' if xml.item else ''
                     for key, value in elem.items():
                         
                         if not (isinstance(value,dict) or isinstance(value,list)):
-                            xml.add_item(key,str(value))
-                            
-                            print('\n gravado ',key,value,'\n')
+                            xml.add_item(key,value)
+
+                        # Trataemto Tags com varios valores ex. Nomes:[a,b]    
                         elif isinstance(value,list):
                             for v in value:
                                 create_xml([{key:v}],xml)
-                                print('\n List inside a dict \n')
+                        
+                        # Tramento de Tags com outro dict dentro ex. Nome:{sobrenome:a,ultimo:b}  
                         else:
-                            print('\nDict inside dict', key,value,'\n')
                             create_xml([{key:value}],xml)
 
                     xml +'</item>'if xml.item else ''
+                #Caso seja uma lista ou outro dict dentro do dict 
                 else:
-                    print('\nRe create_xml\n', elem)
                     for k,v in elem.items():
-                        print(f'Dentro do Recreate \n{k}:{v} \n')
-                        create_xml([{k:v}],xml)    
+                        create_xml([{k:v}],xml)
+            #    
             else:
-                print('\nchamada recu\n', elem)
                 create_xml([elem],xml)
+
+        # Se houve uma lista destro da lista
         elif isinstance(elem,list):
-            for el in elem:
-                print(f'\n\n\n\nlista\n{el}\n\n\n')
-                create_xml([{firstk:el}],xml)
+            create_xml(elem,xml)
+        # Exception
         else:
-            print('Não foi...')
+            print('It was not possible to parse your Json')
+            raise NameError('Parse Error')
 
     xml + f'</{firstk}>'  
 
 def dicttoxml2(mylist:list, comma = False):
     xml = Xml(comma)   
     create_xml(mylist,xml)
-    xml.print()
     return xml.body
