@@ -34,8 +34,7 @@ def create(array:list, xml:Xml, comma:bool):
         xml.item = False
         firstk = str(list(array.keys())[0])
         
-        if len(array) == 1 and (isinstance(array[firstk],dict) 
-                           or isinstance(array[firstk],list)):
+        if len(array) == 1 and isinstance(array[firstk],dict):
             
             array = array[firstk]
             key_to_remove = []
@@ -69,13 +68,18 @@ def create(array:list, xml:Xml, comma:bool):
                 if isinstance(elem,dict):
                     next_val = str(list(elem)[0])
 
+                #Local de gravação dos elementos
                 if not isinstance(elem[next_val],dict):
                     xml + f'<item>' if xml.item else ''
                     for key, value in elem.items():
                         
-                        if not isinstance(value,dict):
-                            xml.add_item(key,value)
+                        if not (isinstance(value,dict) or isinstance(value,list)):
+                            xml.add_item(key,str(value))
                             print('\n gravado ',key,value,'\n')
+                        elif isinstance(value,list):
+                            for v in value:
+                                create([{key:v}],xml,comma)
+                                print('\n List inside a dict \n')
                         else:
                             print('\nDict inside dict', key,value,'\n')
                             create([{key:value}],xml,comma)
@@ -90,7 +94,9 @@ def create(array:list, xml:Xml, comma:bool):
                 print('\nchamada recu\n', elem)
                 create([elem],xml,comma)
         elif isinstance(elem,list):
-            create([elem],xml,comma)
+            for el in elem:
+                print(f'\n\n\n\nlista\n{el}\n\n\n')
+                create([{firstk:el}],xml,comma)
         else:
             print('Não foi...')
 
