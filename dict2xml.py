@@ -3,20 +3,26 @@ class Xml:
     added = False
     item = True
     
-    def __init__(self,comma:bool,root:str,item:str):
+    def __init__(self,comma:bool,root:str,item:str, decimal:int):
         self.comma = comma
         self.root_tag = root
         self.item_tag = item
+        self.decimal = decimal
     
     def __add__(self, string:str):
-        self.body += f'{str(string)}\n'
+        self.body += f'{str(string)}\n'.replace('None','null')
         self.added = True
 
     def add_item(self,key:str,value:str,parms = None):
         if isinstance(value,float):
-            value = str(value).replace('.',',') if self.comma else value
+            if self.decimal == None:
+                value = str(value).replace('.',',') if self.comma else value
+            else:
+                frt = r'{0:.' + str(self.decimal) + r'f}'
+                value = frt.format(value)
+                value = str(value).replace('.',',') if self.comma else value
 
-        self.body += f'<{key}>{str(value)}</{key}>\n'
+        self.body += f'<{key}>{str(value)}</{key}>\n'.replace('None','null')
         self.added = True 
     
     def print(self):
@@ -98,7 +104,7 @@ class Xml:
 
         self + f'</{firstk}>'  
 
-def dicttoxml2(mylist:list, comma = False, root = 'root', item = 'item'):
-    xml = Xml(comma,root,item)   
+def dicttoxml2(mylist:list, comma = False, root = 'root', item = 'item', decimal = None):
+    xml = Xml(comma,root,item, decimal)   
     xml.create_xml(mylist)
     return xml.body

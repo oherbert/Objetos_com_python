@@ -14,15 +14,34 @@ if len(args) > 1:
     'comma': False,
     'root': 'root',
     'item': 'item',
-    'path': args[1],
+    'path': '',
+    'decimal': None
     }
 
     for par in args:
         if '=' in par: 
             kv = par.split('=')
+            kv[0] = kv[0].strip()
             kv[1] = kv[1].strip()
-            kv[1] = True if 'TRUE' in kv[1].upper() else kv[1]
+
+            if kv[0].upper() == "COMMA":
+                kv[1] = True if 'TRUE' == kv[1].upper() else False
+
+            if kv[0].upper() == "ROOT":
+                kv[1] = kv[1] if '' != kv[1] else 'root'
+
+            if kv[0].upper() == "ITEM":
+                kv[1] = kv[1] if '' != kv[1] else 'item'  
+
+            if kv[0].upper() == "DECIMAL":
+                kv[1] = int(kv[1]) if kv[1].isdecimal() else None
+            
             parms.update({kv[0].strip():kv[1]})
+            print(kv[0],kv[1])
+
+    if parms['path'] == '':
+        parms['path'] = args[1] if 'JSON' in args[1].upper() or 'XML' in args[1].upper() else None
+        if parms['path'] == None: raise NameError('File not informed, use first parms as file path or path=file.json')
 
     try:
         jsons = []
@@ -34,7 +53,7 @@ if len(args) > 1:
             
             with open(parms['path'].replace('.json','.xml'), 'w') as writer:                
                 
-                xml = dicttoxml2(jsons,parms['comma'],parms['root'],parms['item'])
+                xml = dicttoxml2(jsons,parms['comma'],parms['root'],parms['item'],parms['decimal'])
                 try:
                     xml = parseString(xml).toprettyxml()
                 except Exception:
