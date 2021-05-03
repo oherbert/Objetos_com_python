@@ -1,0 +1,30 @@
+[
+  {
+    "eFinanceira": {
+      "@xmlns": "http://www.eFinanceira.gov.br/schemas/evtFechamentoeFinanceira/v1_2_1",
+      "evtFechamentoeFinanceira": {
+        "@id": "ID000000000000000001",
+        "ideEvento": {
+          "indRetificacao": 1,
+          "tpAmb": 1,
+          "aplicEmi": 2,
+          "verAplic": "00000000000000000001"
+        },
+        "ideDeclarante": {
+          "cnpjDeclarante": 11111111111111
+        },
+        "infoFechamento": {
+          "dtInicio": "2018-01-01",
+          "dtFim": "2018-06-30",
+          "sitEspecial": "0"
+        },
+        "FechamentoMovOpFin": {
+          "FechamentoMes": {
+            "anoMesCaixa": 201806,
+            "quantArqTrans": 1
+          }
+        }
+      }
+    }
+  }
+]

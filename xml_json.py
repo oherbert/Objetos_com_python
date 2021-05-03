@@ -37,7 +37,6 @@ if len(args) > 1:
                 kv[1] = int(kv[1]) if kv[1].isdecimal() else None
             
             parms.update({kv[0].strip():kv[1]})
-            print(kv[0],kv[1])
 
     if parms['path'] == '':
         parms['path'] = args[1] if 'JSON' in args[1].upper() or 'XML' in args[1].upper() else None

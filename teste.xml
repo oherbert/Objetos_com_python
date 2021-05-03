@@ -1,99 +1,143 @@
 <?xml version="1.0" ?>
-<catalog>
-	<book id="bk101">
-		<author>Gambardella, Matthew</author>
-		<title>XML Developer's Guide</title>
-		<genre>Computer</genre>
-		<price>44.950</price>
-		<publish_date>2000-10-01</publish_date>
-		<description>An in-depth look at creating applications with XML.</description>
-	</book>
-	<book id="bk102">
-		<author>Ralls, Kim</author>
-		<title>Midnight Rain</title>
-		<genre>Fantasy</genre>
-		<price>5.950</price>
-		<publish_date>2000-12-16</publish_date>
-		<description>A former architect battles corporate zombies, an evil sorceress, and her own childhood to become queen of the world.</description>
-	</book>
-	<book id="bk103">
-		<author>Corets, Eva</author>
-		<title>Maeve Ascendant</title>
-		<genre>Fantasy</genre>
-		<price>5.950</price>
-		<publish_date>2000-11-17</publish_date>
-		<description>After the collapse of a nanotechnology society in England, the young survivors lay the foundation for a new society.</description>
-	</book>
-	<book id="bk104">
-		<author>Corets, Eva</author>
-		<title>Oberon's Legacy</title>
-		<genre>Fantasy</genre>
-		<price>5.950</price>
-		<publish_date>2001-03-10</publish_date>
-		<description>In post-apocalypse England, the mysterious agent known only as Oberon helps to create a new life for the inhabitants of London. Sequel to Maeve Ascendant.</description>
-	</book>
-	<book id="bk105">
-		<author>Corets, Eva</author>
-		<title>The Sundered Grail</title>
-		<genre>Fantasy</genre>
-		<price>5.950</price>
-		<publish_date>2001-09-10</publish_date>
-		<description>The two daughters of Maeve, half-sisters, battle one another for control of England. Sequel to Oberon's Legacy.</description>
-	</book>
-	<book id="bk106">
-		<author>Randall, Cynthia</author>
-		<title>Lover Birds</title>
-		<genre>Romance</genre>
-		<price>4.950</price>
-		<publish_date>2000-09-02</publish_date>
-		<description>When Carla meets Paul at an ornithology conference, tempers fly as feathers get ruffled.</description>
-	</book>
-	<book id="bk107">
-		<author>Thurman, Paula</author>
-		<title>Splish Splash</title>
-		<genre>Romance</genre>
-		<price>4.950</price>
-		<publish_date>2000-11-02</publish_date>
-		<description>A deep sea diver finds true love twenty thousand leagues beneath the sea.</description>
-	</book>
-	<book id="bk108">
-		<author>Knorr, Stefan</author>
-		<title>Creepy Crawlies</title>
-		<genre>Horror</genre>
-		<price>4.950</price>
-		<publish_date>2000-12-06</publish_date>
-		<description>An anthology of horror stories about roaches,centipedes, scorpions and other insects.</description>
-	</book>
-	<book id="bk109">
-		<author>Kress, Peter</author>
-		<title>Paradox Lost</title>
-		<genre>Science Fiction</genre>
-		<price>6.950</price>
-		<publish_date>2000-11-02</publish_date>
-		<description>After an inadvertant trip through a HeisenbergUncertainty Device, James Salway discovers the problems of being quantum.</description>
-	</book>
-	<book id="bk110">
-		<author>O'Brien, Tim</author>
-		<title>Microsoft .NET: The Programming Bible</title>
-		<genre>Computer</genre>
-		<price>36.950</price>
-		<publish_date>2000-12-09</publish_date>
-		<description>Microsoft's .NET initiative is explored in detail in this deep programmer's reference.</description>
-	</book>
-	<book id="bk111">
-		<author>O'Brien, Tim</author>
-		<title>MSXML3: A Comprehensive Guide</title>
-		<genre>Computer</genre>
-		<price>36.950</price>
-		<publish_date>2000-12-01</publish_date>
-		<description>The Microsoft MSXML3 parser is covered in detail, with attention to XML DOM interfaces, XSLT processing, SAX and more.</description>
-	</book>
-	<book id="bk112">
-		<author>Galos, Mike</author>
-		<title>Visual Studio 7: A Comprehensive Guide</title>
-		<genre>Computer</genre>
-		<price>49.950</price>
-		<publish_date>2001-04-16</publish_date>
-		<description>Microsoft Visual Studio 7 is explored in depth,looking at how Visual Basic, Visual C++, C#, and ASP+ are integrated into a comprehensive development environment.</description>
-	</book>
-</catalog>
+<eFinanceira xmlns="http://www.eFinanceira.gov.br/schemas/evtMovOpFin/v1_2_0">
+	<evtMovOpFin id="ID000000000000000001">
+		<ideEvento>
+			<indRetificacao>1</indRetificacao>
+			<tpAmb>1</tpAmb>
+			<aplicEmi>2</aplicEmi>
+			<verAplic>00000000000000000001</verAplic>
+		</ideEvento>
+		<ideDeclarante>
+			<cnpjDeclarante>11111111111111</cnpjDeclarante>
+		</ideDeclarante>
+		<ideDeclarado>
+			<tpNI>2</tpNI>
+			<tpDeclarado>FATCA101</tpDeclarado>
+			<NIDeclarado>22222222222222</NIDeclarado>
+			<NIF>
+				<NumeroNIF>1234567890123456789012345</NumeroNIF>
+				<PaisEmissaoNIF>US</PaisEmissaoNIF>
+			</NIF>
+			<NomeDeclarado>Nome do Declarado com 100 caracteres com 100 caracteres com 100 caracteres com 100 caracteres com 10</NomeDeclarado>
+			<NomeOutros>
+				<NomePJ>
+					<tpNome>OECD203</tpNome>
+					<Nome>Jose Maria com pelo menos 100 posicoes Jose Maria pelo menos 100 posicoes Jose Maria 100 posicoes</Nome>
+				</NomePJ>
+			</NomeOutros>
+			<EnderecoLivre>EnderecoLivre com 200 caracteres com 200 caracteres com 200 caracteres com 200 caracteres com 200 caracteres com 200 caracteres com 200 caracteres com 200 caracteres com 200 caracteres lalalal</EnderecoLivre>
+			<PaisEndereco>
+				<Pais>BR</Pais>
+			</PaisEndereco>
+			<paisResid>
+				<Pais>BR</Pais>
+			</paisResid>
+			<Proprietarios>
+				<tpNI>1</tpNI>
+				<NIProprietario>12345678901</NIProprietario>
+				<tpProprietario>CRS801</tpProprietario>
+				<NIF>
+					<NumeroNIF>1234567890123456789012345</NumeroNIF>
+					<PaisEmissaoNIF>US</PaisEmissaoNIF>
+				</NIF>
+				<Nome>Nome com 100 caracteres com 100 caracteres com 100 caracteres com 100 caracteres com 100 caracteres!</Nome>
+				<tpNome>OECD204</tpNome>
+				<NomeOutros>
+					<NomePF>
+						<tpNome>OECD205</tpNome>
+						<PrecTitulo>vossa PP excelência</PrecTitulo>
+						<Titulo>Senhor PP1</Titulo>
+						<Titulo>Senhor PP2</Titulo>
+						<PrimeiroNome>
+							<Tipo>Tipo Primeiro Nome20</Tipo>
+							<Nome>Nome Primeiro Nome20</Nome>
+						</PrimeiroNome>
+						<MeioNome>
+							<Tipo>Tipo Meio Nome20</Tipo>
+							<Nome>Nome meio Nome um 20</Nome>
+						</MeioNome>
+						<MeioNome>
+							<Tipo>Tipo meio Nome 61 20</Tipo>
+							<Nome>Nome meio Nome 61 20</Nome>
+						</MeioNome>
+						<PrefixoNome>
+							<Tipo>tipo Pref Nome c 20</Tipo>
+							<Nome>Nome Pref</Nome>
+						</PrefixoNome>
+						<UltimoNome>
+							<Tipo>tipo ultimo Nome 20</Tipo>
+							<Nome>nome ultimo Nome 20</Nome>
+						</UltimoNome>
+						<IdGeracao>Junior 2</IdGeracao>
+						<IdGeracao>Junior 22</IdGeracao>
+						<Sufixo>PhD 2</Sufixo>
+						<Sufixo>PhD 22</Sufixo>
+						<GenSufixo>Aposentado</GenSufixo>
+					</NomePF>
+				</NomeOutros>
+				<EnderecoLivre>EnderecoLivre com 200 caracteres com 200 caracteres com 200 caracteres com 200 caracteres com 200 caracteres com 200 caracteres com 200 caracteres com 200 caracteres com 200 caracteres lalalal</EnderecoLivre>
+				<PaisEndereco>
+					<Pais>BR</Pais>
+				</PaisEndereco>
+				<paisResid>
+					<Pais>BR</Pais>
+				</paisResid>
+				<PaisNacionalidade>
+					<Pais>BR</Pais>
+				</PaisNacionalidade>
+				<Reportavel>
+					<Pais>BR</Pais>
+				</Reportavel>
+			</Proprietarios>
+		</ideDeclarado>
+		<mesCaixa>
+			<anoMesCaixa>201806</anoMesCaixa>
+			<movOpFin>
+				<Conta>
+					<infoConta>
+						<Reportavel>
+							<Pais>BR</Pais>
+						</Reportavel>
+						<tpConta>3</tpConta>
+						<subTpConta>301</subTpConta>
+						<tpNumConta>OECD605</tpNumConta>
+						<numConta>1234|123|1234567890123</numConta>
+						<tpRelacaoDeclarado>3</tpRelacaoDeclarado>
+						<Intermediario>
+							<GIIN>98Q96B.00000.LE.250</GIIN>
+							<tpNI>1</tpNI>
+							<NIIntermediario>48470767100</NIIntermediario>
+						</Intermediario>
+						<NoTitulares>4</NoTitulares>
+						<Fundo>
+							<GIIN>98Q96B.00000.LE.250</GIIN>
+							<CNPJ>90001504000119</CNPJ>
+						</Fundo>
+						<BalancoConta>
+							<totCreditos>150000,00</totCreditos>
+							<totDebitos>100000,00</totDebitos>
+							<totCreditosMesmaTitularidade>100000,00</totCreditosMesmaTitularidade>
+							<totDebitosMesmaTitularidade>100000,00</totDebitosMesmaTitularidade>
+						</BalancoConta>
+						<PgtosAcum>
+							<tpPgto>FATCA503</tpPgto>
+							<totPgtosAcum>0,00</totPgtosAcum>
+						</PgtosAcum>
+					</infoConta>
+				</Conta>
+				<Cambio>
+					<MedJudic>
+						<NumProcJud>123456789</NumProcJud>
+						<Vara>01</Vara>
+						<SecJud>12</SecJud>
+						<SubSecJud>Subseção judiciária com os 40 caracteres</SubSecJud>
+						<dtConcessao>2012-01-12</dtConcessao>
+					</MedJudic>
+					<totCompras>1000000,00</totCompras>
+					<totVendas>1000000,00</totVendas>
+					<totTransferencias>1000000,00</totTransferencias>
+				</Cambio>
+			</movOpFin>
+		</mesCaixa>
+	</evtMovOpFin>
+</eFinanceira>
