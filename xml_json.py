@@ -15,7 +15,8 @@ if len(args) > 1:
     'root': 'root',
     'item': 'item',
     'path': '',
-    'decimal': None
+    'decimal': None,
+    'output': None
     }
 
     for par in args:
@@ -45,13 +46,14 @@ if len(args) > 1:
     try:
         jsons = []
         xml = []
+        name = '\\' + parms['path']
+        parms['output'] = parms['path'] if parms['output'] == None else parms['output'] + name
 
         if '.json' in parms['path']:
             with open( parms['path'], 'r') as reader:
                 jsons = json.loads(reader.read())
-            
-            with open(parms['path'].replace('.json','.xml'), 'w') as writer:                
-                
+
+            with open(parms['output'].replace('.json','.xml'), 'w') as writer:                
                 xml = dicttoxml2(jsons,parms['comma'],parms['root'],parms['item'],parms['decimal'])
                 try:
                     xml = parseString(xml).toprettyxml()
@@ -66,7 +68,7 @@ if len(args) > 1:
             with open(parms['path'], 'r') as reader:
                 jsons = xmltodict.parse(reader.read())
             
-            with open(parms['path'].replace('.xml','.json'), 'w') as writer:
+            with open(parms['output'].replace('.xml','.json'), 'w') as writer:
                 if 'root' in jsons:
                     jsons = jsons['root']  
                 
@@ -77,7 +79,8 @@ if len(args) > 1:
                     jsons = [jsons]
 
                 jsons = format_fields(jsons) 
-                jsons = json.dump(jsons, writer,indent= 2)                          
+                jsons = json.dump(jsons, writer,indent= 2)
+                print('oi')                          
 
     except Exception:
         traceback.print_exc()
