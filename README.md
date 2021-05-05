@@ -4,10 +4,15 @@ O programa pode ser executado via prompt, passando parametros ou arrastando o ar
 
 # O app tem 6 argumentos sendo eles:
  "comma = true/false" - Utiliza virgulas no lugar de ponto decimal, por default é false.
+ 
  "root = root" - Um json sem uma chave principal por default é criado a chave 'root'.
+ 
  "item = item" - Um json sem um nome para cada, objeto por default recebe a chave 'item'.
+ 
  "path = local" - Caminho para leitura do arquivo para conversão, sendo o primeiro argumento da chamada ou utilizando "path = c:\seu\caminho".
+ 
  "decimal = 1" número de casas decimais para os numeros floats, por default, 1 casa decimal.
+ 
  "output= None" indica onde será salvo o documento de saída, por default no mesmo local do documento de leitura.
 
  *** Lembrando que no arquivo conversor.bat é necessario alterar o local da chamada do programa o abrindo em um editor de textos, no abaixo exemplo ele está instalado em "C:\xml_json\xml_json.exe", a vantagem de utilizar o arquivo bat é que a chamada via prompt ou arrastando o arquivo, é possível deixar parametrizadas as configurações.
